@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using Mission06.Models;
+using Mission6.Models;
 using System.Collections.Generic;
 
 namespace Mission6.Models

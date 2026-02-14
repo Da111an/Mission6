@@ -9,19 +9,19 @@ namespace Mission6.Models
         public int MovieId { get; set; } // Primary Key
 
         [Required]
-        public string Category { get; set; }
+        public required string Category { get; set; } // Added 'required'
 
         [Required]
-        public string Title { get; set; }
+        public required string Title { get; set; } // Added 'required'
 
         [Required]
         public int Year { get; set; }
 
         [Required]
-        public string Director { get; set; }
+        public required string Director { get; set; } // Added 'required'
 
         [Required]
-        public string Rating { get; set; } // Will be a dropdown in the View
+        public required string Rating { get; set; } // Added 'required'
 
         public bool? Edited { get; set; } // Optional (Nullable)
 
