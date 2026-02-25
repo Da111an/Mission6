@@ -9,10 +9,10 @@ namespace Mission6
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+            // Add MVC services for controllers and views
             builder.Services.AddControllersWithViews();
 
-            // 1. Register the Database Context to use SQLite
+            // Configure Entity Framework Core with SQLite database
             builder.Services.AddDbContext<MovieContext>(options =>
             {
                 options.UseSqlite(builder.Configuration.GetConnectionString("MovieConn"));
@@ -20,23 +20,22 @@ namespace Mission6
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
+            // Configure error handling and security for production
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
 
+            // Enable HTTPS and static file serving
             app.UseHttpsRedirection();
-
-            // 2. Ensure Static Files are enabled so your images in wwwroot/img work
             app.UseStaticFiles();
 
+            // Enable routing and authorization
             app.UseRouting();
-
             app.UseAuthorization();
 
-            // 3. Simplified routing for Mission 6
+            // Default route: Home controller, Index action
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");

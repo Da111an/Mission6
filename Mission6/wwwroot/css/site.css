@@ -1,3 +1,4 @@
+/* Base typography and responsive sizing */
 html {
   font-size: 14px;
 }
@@ -8,19 +9,22 @@ html {
   }
 }
 
+/* Focus states for accessibility - enhances keyboard navigation visibility */
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
+/* Layout configuration */
 html {
   position: relative;
   min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+  margin-bottom: 60px; /* Space for footer */
 }
 
+/* Floating label placeholder styling */
 .form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
   color: var(--bs-secondary-color);
   text-align: end;
@@ -30,7 +34,7 @@ body {
   text-align: start;
 }
 
-/* Dark Mode Styles */
+/* Dark mode theme - customizes Bootstrap components for dark backgrounds */
 [data-bs-theme="dark"] {
   --bs-body-color: #f0f0f0;
   --bs-body-bg: #212529;

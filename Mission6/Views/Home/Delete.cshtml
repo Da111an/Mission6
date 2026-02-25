@@ -2,10 +2,12 @@
 
 <h2>Delete Movie</h2>
 
+@* Warning message for destructive action *@
 <p class="alert alert-warning">
     Are you sure you want to delete <strong>@Model.Title</strong>?
 </p>
 
+@* Display movie details for confirmation before deletion *@
 <div class="form-group mb-3">
     <label><strong>Title:</strong> @Model.Title</label><br />
     <label><strong>Year:</strong> @Model.Year</label><br />
@@ -14,7 +16,9 @@
     <label><strong>Rating:</strong> @(string.IsNullOrEmpty(Model.Rating) ? "N/A" : Model.Rating)</label>
 </div>
 
+@* Form for confirming deletion *@
 <form method="post">
+    @* Hidden field to preserve the MovieId during submission *@
     <input type="hidden" asp-for="MovieId" />
     <button type="submit" class="btn btn-danger">Confirm Delete</button>
     <a href="/Home/MovieList" class="btn btn-secondary">Cancel</a>

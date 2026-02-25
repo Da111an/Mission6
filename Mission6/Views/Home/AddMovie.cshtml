@@ -2,9 +2,12 @@
 
 <h2>Add a Movie to the Collection</h2>
 
+@* Form for adding a new movie to the collection with validation *@
 <form method="post">
+    @* Display all validation errors at the top *@
     <div asp-validation-summary="All" class="text-danger"></div>
 
+    @* Category dropdown - required field *@
     <div class="form-group">
         <label asp-for="CategoryId">Category</label>
         <select asp-for="CategoryId" class="form-control">
@@ -16,6 +19,7 @@
         </select>
     </div>
 
+    @* Required basic movie information *@
     <div class="form-group">
         <label asp-for="Title">Title</label>
         <input asp-for="Title" class="form-control" />
@@ -26,6 +30,7 @@
         <input asp-for="Year" class="form-control" />
     </div>
 
+    @* Optional movie details *@
     <div class="form-group">
         <label asp-for="Director">Director</label>
         <input asp-for="Director" class="form-control" />
@@ -41,6 +46,7 @@
         </select>
     </div>
 
+    @* Metadata about the movie *@
     <div class="form-group">
         <label asp-for="Edited">Edited?</label>
         <select asp-for="Edited" class="form-control">
@@ -57,6 +63,7 @@
         </select>
     </div>
 
+    @* Additional movie information *@
     <div class="form-group">
         <label asp-for="LentTo">Lent To</label>
         <input asp-for="LentTo" class="form-control" />

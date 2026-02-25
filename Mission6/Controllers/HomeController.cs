@@ -1,42 +1,57 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Mission6.Models;
-using Microsoft.EntityFrameworkCore; // 1. ADD THIS for .Include()
+using Microsoft.EntityFrameworkCore;
 
 namespace Mission6.Controllers
 {
+    /// <summary>
+    /// Handles all HTTP requests related to movies and navigation.
+    /// Manages CRUD operations for movies and category display.
+    /// </summary>
     public class HomeController : Controller
     {
-        private MovieContext _context;
+        private readonly MovieContext _context;
 
-        public HomeController(MovieContext temp)
+        public HomeController(MovieContext context)
         {
-            _context = temp;
+            _context = context;
         }
 
+        /// <summary>
+        /// Displays the home page with welcome information.
+        /// </summary>
         public IActionResult Index()
         {
             return View();
         }
 
+        /// <summary>
+        /// Displays information about Joel.
+        /// </summary>
         public IActionResult GetToKnowJoel()
         {
             return View();
         }
 
-        // GET: Add Movie
+        /// <summary>
+        /// GET: Displays the form to add a new movie.
+        /// Populates the category dropdown list sorted alphabetically.
+        /// </summary>
         [HttpGet]
         public IActionResult AddMovie()
         {
-            // 2. Fetch categories to populate the dropdown in the View
             ViewBag.Categories = _context.Categories
                 .OrderBy(c => c.CategoryName)
                 .ToList();
 
-            return View(new Movie { Title = "", Director = "", Rating = "" }); // Passing a new movie model prevents null errors
+            return View(new Movie { Title = "", Director = "", Rating = "" });
         }
 
-        // POST: Add Movie
+        /// <summary>
+        /// POST: Saves a new movie to the database.
+        /// Reloads categories if validation fails to preserve dropdown state.
+        /// </summary>
         [HttpPost]
         public IActionResult AddMovie(Movie response)
         {
@@ -47,15 +62,17 @@ namespace Mission6.Controllers
                 return View("Index");
             }
 
-            // If invalid, we need to reload the categories for the dropdown before returning the view
+            // Reload categories if validation fails
             ViewBag.Categories = _context.Categories.OrderBy(c => c.CategoryName).ToList();
             return View(response);
         }
 
-        // GET: Movie List
+        /// <summary>
+        /// Displays all movies in the collection, sorted by title.
+        /// Uses Include() to load category information for each movie.
+        /// </summary>
         public IActionResult MovieList()
         {
-            // 3. Add .Include() to join the Categories table
             var movies = _context.Movies
                 .Include(x => x.Category)
                 .OrderBy(x => x.Title)
@@ -64,13 +81,15 @@ namespace Mission6.Controllers
             return View(movies);
         }
 
-        // GET: Edit Movie
+        /// <summary>
+        /// GET: Displays the form to edit an existing movie.
+        /// Loads the movie details and available categories for the dropdown.
+        /// </summary>
         [HttpGet]
         public IActionResult Edit(int id)
         {
             var movie = _context.Movies.Single(x => x.MovieId == id);
 
-            // 4. Load categories so the edit dropdown works
             ViewBag.Categories = _context.Categories
                 .OrderBy(c => c.CategoryName)
                 .ToList();
@@ -78,7 +97,10 @@ namespace Mission6.Controllers
             return View(movie);
         }
 
-        // POST: Edit Movie
+        /// <summary>
+        /// POST: Updates an existing movie in the database.
+        /// Reloads categories if validation fails to preserve dropdown state.
+        /// </summary>
         [HttpPost]
         public IActionResult Edit(Movie updatedMovie)
         {
@@ -89,16 +111,18 @@ namespace Mission6.Controllers
                 return RedirectToAction("MovieList");
             }
 
-            // If invalid, reload categories for the dropdown
+            // Reload categories if validation fails
             ViewBag.Categories = _context.Categories.OrderBy(c => c.CategoryName).ToList();
             return View(updatedMovie);
         }
 
-        // GET: Delete Confirmation
+        /// <summary>
+        /// GET: Displays confirmation page before deleting a movie.
+        /// Includes category information for context.
+        /// </summary>
         [HttpGet]
         public IActionResult Delete(int id)
         {
-            // Optional: Include category here too if you display it on the delete page
             var movie = _context.Movies
                 .Include(x => x.Category)
                 .Single(x => x.MovieId == id);
@@ -106,7 +130,9 @@ namespace Mission6.Controllers
             return View(movie);
         }
 
-        // POST: Delete Movie
+        /// <summary>
+        /// POST: Permanently removes a movie from the database.
+        /// </summary>
         [HttpPost]
         public IActionResult Delete(Movie movie)
         {
@@ -115,6 +141,9 @@ namespace Mission6.Controllers
             return RedirectToAction("MovieList");
         }
 
+        /// <summary>
+        /// Displays the error page when an exception occurs during request processing.
+        /// </summary>
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
