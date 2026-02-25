@@ -20,7 +20,7 @@
         @foreach (var m in Model)
         {
             <tr>
-                <td>@m.Category</td>
+                <td>@m.Category?.CategoryName</td>
                 <td>@m.Title</td>
                 <td>@m.Year</td>
                 <td>@m.Director</td>

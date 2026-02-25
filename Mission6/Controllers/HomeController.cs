@@ -75,7 +75,7 @@ namespace Mission6.Controllers
                 .OrderBy(c => c.CategoryName)
                 .ToList();
 
-            return View("AddMovie", movie);
+            return View(movie);
         }
 
         // POST: Edit Movie
@@ -91,7 +91,7 @@ namespace Mission6.Controllers
 
             // If invalid, reload categories for the dropdown
             ViewBag.Categories = _context.Categories.OrderBy(c => c.CategoryName).ToList();
-            return View("AddMovie", updatedMovie);
+            return View(updatedMovie);
         }
 
         // GET: Delete Confirmation
