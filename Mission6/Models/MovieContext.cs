@@ -1,6 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using Mission6.Models;
-using System.Collections.Generic;
 
 namespace Mission6.Models
 {
@@ -10,6 +8,10 @@ namespace Mission6.Models
         {
         }
 
+        // You probably already have this one:
         public DbSet<Movie> Movies { get; set; }
+
+        // ADD THIS LINE RIGHT HERE:
+        public DbSet<Category> Categories { get; set; } 
     }
 }

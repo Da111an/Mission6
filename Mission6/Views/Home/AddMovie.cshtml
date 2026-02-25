@@ -6,8 +6,14 @@
     <div asp-validation-summary="All" class="text-danger"></div>
 
     <div class="form-group">
-        <label asp-for="Category">Category</label>
-        <input asp-for="Category" class="form-control" />
+        <label asp-for="CategoryId">Category</label>
+        <select asp-for="CategoryId" class="form-control">
+            <option value="">-- Select a Category --</option>
+            @foreach (var c in ViewBag.Categories)
+            {
+                <option value="@c.CategoryId">@c.CategoryName</option>
+            }
+        </select>
     </div>
 
     <div class="form-group">
